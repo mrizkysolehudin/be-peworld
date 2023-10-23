@@ -60,11 +60,7 @@ const updatePortfolio = (data) => {
 const selectPortfoliosUserByUserId = (user_id) => {
 	return db.query(`
 	SELECT
-	portfolio.portfolio_id,
-	portfolio.name,
-	portfolio.type,
-	portfolio.image,
-	portfolio.link,
+	portfolio.*,
 	users.name AS username
 FROM
 	portfolio

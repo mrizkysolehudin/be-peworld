@@ -6,6 +6,7 @@ const cookieParser = require("cookie-parser");
 
 const userRoute = require("./src/routes/userRoute.js");
 const portfolioRoute = require("./src/routes/portfolioRoute.js");
+const skillRoute = require("./src/routes/skillRoute.js");
 const workExperieceRoute = require("./src/routes/workExperieceRoute.js");
 
 const PORT = 5000;
@@ -22,6 +23,7 @@ app.use(cookieParser());
 app.use("/user", userRoute);
 app.use("/portfolio", portfolioRoute);
 app.use("/workexperience", workExperieceRoute);
+app.use("/skill", skillRoute);
 
 app.listen(PORT, () => {
 	console.log(`Server berjalan di PORT: ${PORT}`);

@@ -32,7 +32,7 @@ CREATE TABLE company (
 
 CREATE TABLE skill (
     skill_id SERIAL PRIMARY KEY,
-    skill_name VARCHAR(255),
+    name VARCHAR(255),
     user_id INT
 );
 
