@@ -14,6 +14,8 @@ CREATE TABLE users (
   job_title VARCHAR(255),
   company VARCHAR(255),
   company_field VARCHAR(255),
+  instagram VARCHAR(255),
+  linkedin VARCHAR(255),
   description TEXT
 );
 

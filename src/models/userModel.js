@@ -26,6 +26,8 @@ const updateUser = (data) => {
 		job_title,
 		company,
 		company_field,
+		instagram,
+		linkedin,
 		description,
 	} = data;
 
@@ -41,6 +43,8 @@ const updateUser = (data) => {
 					job_title = '${job_title}',
 					company = '${company}',
 					company_field = '${company_field}',
+					instagram = '${instagram}',
+					linkedin = '${linkedin}',
 					description = '${description}'
 			WHERE
 				  user_id=${user_id}`,
@@ -64,6 +68,8 @@ const insertRecruiter = (data) => {
 		job_title,
 		company,
 		company_field,
+		instagram,
+		linkedin,
 		description,
 	} = data;
 
@@ -80,6 +86,8 @@ const insertRecruiter = (data) => {
 				job_title,
 				company,
 				company_field,
+				instagram,
+				linkedin,
 				description
     ) VALUES (
         ${0},
@@ -93,6 +101,8 @@ const insertRecruiter = (data) => {
         '${job_title}',
         '${company}',
         '${company_field}',
+        '${instagram}',
+        '${linkedin}',
         '${description}'
     )`,
 	);
@@ -111,13 +121,15 @@ const updateRecruiter = (data) => {
 		job_title,
 		company,
 		company_field,
+		instagram,
+		linkedin,
 		description,
 	} = data;
 
 	return db.query(
 		`UPDATE users
 			SET
-					role = ${role},		
+					role = ${0},		
 			  	name = '${name}',
 					email = '${email}',
 					phone = '${phone}',
@@ -128,6 +140,8 @@ const updateRecruiter = (data) => {
 					job_title = '${job_title}',
 					company = '${company}',
 					company_field = '${company_field}',
+					instagram = '${instagram}',
+					linkedin = '${linkedin}',
 					description = '${description}'
 			WHERE
 				  user_id=${user_id}`,
@@ -161,6 +175,8 @@ const insertWorker = (data) => {
 		job_title,
 		company,
 		company_field,
+		instagram,
+		linkedin,
 		description,
 	} = data;
 
@@ -177,6 +193,8 @@ const insertWorker = (data) => {
 				job_title,
 				company,
 				company_field,
+				instagram,
+				linkedin,
 				description
     ) VALUES (
         ${1},
@@ -190,6 +208,8 @@ const insertWorker = (data) => {
         '${job_title}',
         '${company}',
         '${company_field}',
+				'${instagram}',
+				'${linkedin}',
         '${description}'
     )`,
 	);
@@ -208,6 +228,8 @@ const updateWorker = (data) => {
 		job_title,
 		company,
 		company_field,
+		instagram,
+		linkedin,
 		description,
 	} = data;
 
@@ -224,6 +246,8 @@ const updateWorker = (data) => {
 					job_title = '${job_title}',
 					company = '${company}',
 					company_field = '${company_field}',
+					instagram = '${instagram}',
+					linkedin = '${linkedin}',
 					description = '${description}'
 			WHERE
 					ROLE=1 AND user_id=${user_id}`,

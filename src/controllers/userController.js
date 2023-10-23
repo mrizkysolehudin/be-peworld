@@ -64,6 +64,8 @@ const userController = {
 				job_title,
 				company,
 				company_field,
+				instagram,
+				linkedin,
 				description,
 			} = req.body;
 
@@ -100,6 +102,8 @@ const userController = {
 				job_title: job_title ?? currentUser?.job_title,
 				company: company ?? currentUser?.company,
 				company_field: company_field ?? currentUser?.company_field,
+				instagram: instagram ?? currentUser?.instagram,
+				linkedin: linkedin ?? currentUser?.linkedin,
 				description: description ?? currentUser?.description,
 			};
 
@@ -186,6 +190,8 @@ const userController = {
 				job_title,
 				company,
 				company_field,
+				instagram,
+				linkedin,
 				description,
 			} = req.body;
 			const passwordHash = bcrypt.hashSync(password);
@@ -209,6 +215,8 @@ const userController = {
 				job_title: job_title ?? "",
 				company: company ?? "",
 				company_field: company_field ?? "",
+				instagram: instagram ?? "",
+				linkedin: linkedin ?? "",
 				description: description ?? "",
 			};
 
@@ -263,6 +271,8 @@ const userController = {
 				job_title,
 				company,
 				company_field,
+				instagram,
+				linkedin,
 				description,
 			} = req.body;
 			const passwordHash = bcrypt.hashSync(password);
@@ -286,6 +296,8 @@ const userController = {
 				job_title: job_title ?? "",
 				company: company ?? "",
 				company_field: company_field ?? "",
+				instagram: instagram ?? "",
+				linkedin: linkedin ?? "",
 				description: description ?? "",
 			};
 
