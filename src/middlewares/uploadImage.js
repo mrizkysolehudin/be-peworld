@@ -41,6 +41,18 @@ const multerUpload = multer({
 	},
 });
 
+const uploadImage = (req, res, next) => {
+	const multerSingle = multerUpload.single("image");
+
+	multerSingle(req, res, (err) => {
+		if (err) {
+			return responseError(res, 413, "Error when upload file: " + err.message);
+		} else {
+			next();
+		}
+	});
+};
+
 const uploadPhotoProfile = (req, res, next) => {
 	const multerSingle = multerUpload.single("photo");
 
@@ -53,4 +65,4 @@ const uploadPhotoProfile = (req, res, next) => {
 	});
 };
 
-module.exports = { uploadPhotoProfile };
+module.exports = { uploadPhotoProfile, uploadImage };

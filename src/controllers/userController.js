@@ -55,7 +55,17 @@ const userController = {
 	updateUser: async (req, res) => {
 		try {
 			const user_id = req.params.id;
-			const { name, email, phone, role } = req.body;
+			const {
+				role,
+				name,
+				email,
+				phone,
+				region,
+				job_title,
+				company,
+				company_field,
+				description,
+			} = req.body;
 
 			let imageUrl = "";
 			if (req.file) {
@@ -81,11 +91,16 @@ const userController = {
 
 			const data = {
 				user_id,
+				role: role ?? currentUser?.role,
 				name: name ?? currentUser?.name,
 				email: email ?? currentUser?.email,
 				phone: phone ?? currentUser?.phone,
 				photo: imageUrl ?? currentUser?.photo,
-				role: role ?? currentUser?.role,
+				region: region ?? currentUser?.region,
+				job_title: job_title ?? currentUser?.job_title,
+				company: company ?? currentUser?.company,
+				company_field: company_field ?? currentUser?.company_field,
+				description: description ?? currentUser?.description,
 			};
 
 			userModel

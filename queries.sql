@@ -41,15 +41,17 @@ CREATE TABLE work_experiences (
     job_title VARCHAR(255),
     company_name VARCHAR(255),
     we_date DATE,
-    we_description TEXT
+    we_description TEXT,
+    user_id INT
 );
 
 CREATE TABLE portfolio (
     portfolio_id SERIAL PRIMARY KEY,
-    portfolio_name VARCHAR(255),
-    portfolio_type VARCHAR(255) CHECK (portfolio_type IN ('mobile', 'web')),
-    portfolio_image VARCHAR(255),
-    repository_link VARCHAR(255)
+    name VARCHAR(255),
+    type VARCHAR(255) CHECK (type IN ('mobile', 'web')),
+    image VARCHAR(255),
+    link VARCHAR(255),
+    user_id INT
 );
 
 CREATE TABLE hire (
@@ -58,7 +60,9 @@ CREATE TABLE hire (
     name VARCHAR(255),
     email VARCHAR(255),
     phone VARCHAR(15),
-    description TEXT
+    description TEXT,
+    recruiter_id INT,
+    worker_id INT
 );
 
 
@@ -107,3 +111,12 @@ SELECT COUNT(*) FROM users WHERE ROLE=1;
 	ORDER BY users.name ASC
 	LIMIT 10
 	OFFSET 0; 
+
+
+
+-- portfolio
+INSERT INTO portfolio (name, type, image, link, user_id) 
+	VALUES  ('${name}','mobile', '${image}', '${link}', 20);
+
+SELECT DISTINCT type FROM portfolio;
+
