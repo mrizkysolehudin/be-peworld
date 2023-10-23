@@ -2,7 +2,7 @@ const db = require("../configs/db");
 
 const selectAllPortfolios = (search, sort, limit, offset) => {
 	return db.query(` 
-	SELECT * 
+	SELECT portfolio.*, users.name AS username 
 	FROM portfolio
 	JOIN users ON portfolio.user_id = users.user_id
 	WHERE portfolio.name ILIKE '%${search}%' 
@@ -65,7 +65,7 @@ const selectPortfoliosUserByUserId = (user_id) => {
 	portfolio.type,
 	portfolio.image,
 	portfolio.link,
-	users.name AS creator
+	users.name AS username
 FROM
 	portfolio
 JOIN

@@ -36,11 +36,11 @@ CREATE TABLE skill (
     user_id INT
 );
 
-CREATE TABLE work_experiences (
+CREATE TABLE work_experience (
     we_id SERIAL PRIMARY KEY,
-    job_title VARCHAR(255),
+    position VARCHAR(255),
     company_name VARCHAR(255),
-    we_date DATE,
+    we_date VARCHAR(255),
     we_description TEXT,
     user_id INT
 );
