@@ -122,3 +122,6 @@ INSERT INTO portfolio (name, type, image, link, user_id)
 
 SELECT DISTINCT type FROM portfolio;
 
+
+INSERT INTO hire (objective, name, email, phone, description, recruiter_id, worker_id) 
+	VALUES  ('${objective}', '${name}', '${email}', '${phone}', '${description}', 1, 10);

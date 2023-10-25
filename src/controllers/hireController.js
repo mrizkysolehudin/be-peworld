@@ -1,10 +1,10 @@
 const cloudinary = require("../helpers/cloudinary.js");
 const { response, responseError } = require("../helpers/response.js");
-const portfolioModel = require("../models/portfolioModel.js");
+const hireModel = require("../models/hireModel.js");
 const userModel = require("../models/userModel.js");
 
-const portfolioController = {
-	getAllPortfolios: async (req, res) => {
+const hireController = {
+	getAllHire: async (req, res) => {
 		let search = req.query.search || "";
 		let sort = req.query.sort || "ASC";
 
@@ -12,7 +12,7 @@ const portfolioController = {
 		let limit = parseInt(req.query.limit) || 10;
 		let offset = (page - 1) * limit;
 
-		const resultCount = await portfolioModel.countDataPortfolio();
+		const resultCount = await hireModel.countDataHire();
 		const { count } = resultCount.rows[0];
 
 		const totalData = parseInt(count);
@@ -24,43 +24,37 @@ const portfolioController = {
 			totalPage,
 		};
 
-		portfolioModel
-			.selectAllPortfolios(search, sort, limit, offset)
+		hireModel
+			.selectAllHire(search, sort, limit, offset)
 			.then((result) => {
-				return response(
-					res,
-					result.rows,
-					200,
-					"get portfolios success",
-					pagination,
-				);
+				return response(res, result.rows, 200, "get hires success", pagination);
 			})
 			.catch((error) => {
 				return responseError(res, 500, error.message);
 			});
 	},
 
-	getPortfolio: async (req, res) => {
-		const portfolio_id = req.params.id;
+	getHire: async (req, res) => {
+		const hire_id = req.params.id;
 
-		portfolioModel
-			.selectPortfolio(portfolio_id)
+		hireModel
+			.selectHire(hire_id)
 			.then((result) => {
 				let { rowCount } = result;
 				if (!rowCount) {
-					return responseError(res, 404, "Portfolio id is not found");
+					return responseError(res, 404, "Hire id is not found");
 				}
 
-				return response(res, result.rows, 200, "get portfolio success");
+				return response(res, result.rows, 200, "get hire success");
 			})
 			.catch((error) => {
 				return responseError(res, 500, error.message);
 			});
 	},
 
-	updatePortfolio: async (req, res) => {
+	updateHire: async (req, res) => {
 		try {
-			const portfolio_id = req.params.id;
+			const hire_id = req.params.id;
 
 			const { title, description, category_id, ingredients, video, user_id } =
 				req.body;
@@ -70,7 +64,7 @@ const portfolioController = {
 				const uploadImageToCloudinary = await cloudinary.uploader.upload(
 					req.files?.image?.[0].path,
 					{
-						folder: "peworld/portfolio",
+						folder: "peworld/hire",
 						resource_type: "image",
 					},
 				);
@@ -85,7 +79,7 @@ const portfolioController = {
 				const uploadVideoToCloudinary = await cloudinary.uploader.upload(
 					req.files?.video?.[0].path,
 					{
-						folder: "peworld/portfolio/video",
+						folder: "peworld/hire/video",
 						resource_type: "video",
 					},
 				);
@@ -95,36 +89,34 @@ const portfolioController = {
 				videoUrl = uploadVideoToCloudinary?.secure_url ?? "";
 			}
 
-			const { rowCount, rows } = await portfolioModel.selectPortfolio(
-				portfolio_id,
-			);
+			const { rowCount, rows } = await hireModel.selectHire(hire_id);
 			if (!rowCount) {
-				return responseError(res, 404, "Portfolio id is not found");
+				return responseError(res, 404, "Hire id is not found");
 			}
 
-			const currentPortfolio = rows[0];
+			const currentHire = rows[0];
 
 			const data = {
-				portfolio_id,
-				title: title ?? currentPortfolio?.title,
-				description: description ?? currentPortfolio?.description,
-				image: imageUrl ?? currentPortfolio?.image,
-				category_id: category_id ?? currentPortfolio?.category_id,
-				video: videoUrl ?? video ?? currentPortfolio?.video,
-				ingredients: ingredients ?? currentPortfolio?.ingredients,
+				hire_id,
+				title: title ?? currentHire?.title,
+				description: description ?? currentHire?.description,
+				image: imageUrl ?? currentHire?.image,
+				category_id: category_id ?? currentHire?.category_id,
+				video: videoUrl ?? video ?? currentHire?.video,
+				ingredients: ingredients ?? currentHire?.ingredients,
 				user_id,
 			};
 
-			await portfolioModel.updatePortfolio(data);
+			await hireModel.updateHire(data);
 
-			return response(res, data, 200, "update portfolio success");
+			return response(res, data, 200, "update hire success");
 		} catch (error) {
 			return responseError(res, 500, error.message);
 		}
 	},
 
 	// penerapan fitur fe
-	getPortfoliosUserByUserId: async (req, res) => {
+	getHiresByWorkerId: async (req, res) => {
 		try {
 			const user_id = req.params.user_id;
 
@@ -133,10 +125,10 @@ const portfolioController = {
 				return responseError(res, 404, "User id is not found");
 			}
 
-			portfolioModel
-				.selectPortfoliosUserByUserId(user_id)
+			hireModel
+				.selectHiresUserByWorkerId(user_id)
 				.then((result) => {
-					return response(res, result.rows, 200, "get user portfolios success");
+					return response(res, result.rows, 200, "get user hires success");
 				})
 				.catch((error) => {
 					return responseError(res, 500, error.message);
@@ -146,16 +138,24 @@ const portfolioController = {
 		}
 	},
 
-	createPortfolio: async (req, res) => {
+	createHire: async (req, res) => {
 		try {
-			const { name, type, link, user_id } = req.body;
+			const {
+				objective,
+				name,
+				email,
+				phone,
+				description,
+				recruiter_id,
+				worker_id,
+			} = req.body;
 
 			let imageUrl = "";
 			if (req.file) {
 				const uploadToCloudinary = await cloudinary.uploader.upload(
 					req?.file?.path,
 					{
-						folder: "peworld/portfolio",
+						folder: "peworld/hire",
 					},
 				);
 
@@ -166,34 +166,36 @@ const portfolioController = {
 			}
 
 			const data = {
+				objective: objective ?? "",
 				name: name ?? "",
-				type: type ?? "",
-				image: imageUrl ?? "",
-				link: link ?? "",
-				user_id: user_id ?? "",
+				email: email ?? "",
+				phone: phone ?? "",
+				description: description ?? "",
+				recruiter_id: recruiter_id ?? null,
+				worker_id: worker_id ?? null,
 			};
 
-			await portfolioModel.insertPortfolio(data);
+			await hireModel.insertHire(data);
 
-			return response(res, data, 201, "create portfolio success");
+			return response(res, data, 201, "create hire success");
 		} catch (error) {
 			return responseError(res, 500, error.message);
 		}
 	},
 
-	deletePortfolio: async (req, res) => {
+	deleteHire: async (req, res) => {
 		try {
-			const portfolio_id = req.params.id;
+			const hire_id = req.params.id;
 
-			const { rowCount } = await portfolioModel.selectPortfolio(portfolio_id);
+			const { rowCount } = await hireModel.selectHire(hire_id);
 			if (!rowCount) {
-				return responseError(res, 404, "Portfolio id is not found");
+				return responseError(res, 404, "Hire id is not found");
 			}
 
-			portfolioModel
-				.deletePortfolio(portfolio_id)
+			hireModel
+				.deleteHire(hire_id)
 				.then(() => {
-					return response(res, null, 200, "delete portfolio success");
+					return response(res, null, 200, "delete hire success");
 				})
 				.catch((error) => {
 					return responseError(res, 500, error.message);
@@ -204,4 +206,4 @@ const portfolioController = {
 	},
 };
 
-module.exports = portfolioController;
+module.exports = hireController;

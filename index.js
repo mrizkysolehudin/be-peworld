@@ -8,6 +8,7 @@ const userRoute = require("./src/routes/userRoute.js");
 const portfolioRoute = require("./src/routes/portfolioRoute.js");
 const skillRoute = require("./src/routes/skillRoute.js");
 const workExperieceRoute = require("./src/routes/workExperieceRoute.js");
+const hireRoute = require("./src/routes/hireRoute.js");
 
 const PORT = 5000;
 const app = express();
@@ -24,6 +25,7 @@ app.use("/user", userRoute);
 app.use("/portfolio", portfolioRoute);
 app.use("/workexperience", workExperieceRoute);
 app.use("/skill", skillRoute);
+app.use("/hire", hireRoute);
 
 app.listen(PORT, () => {
 	console.log(`Server berjalan di PORT: ${PORT}`);
