@@ -10,7 +10,7 @@ const skillRoute = require("./src/routes/skillRoute.js");
 const workExperieceRoute = require("./src/routes/workExperieceRoute.js");
 const hireRoute = require("./src/routes/hireRoute.js");
 
-const PORT = process.env.SERVER_PORT;
+const PORT = process.env.PORT;
 const app = express();
 
 app.use(express.static("public"));
