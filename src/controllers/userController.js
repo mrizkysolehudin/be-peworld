@@ -92,13 +92,17 @@ const userController = {
 
 			const currentUser = rows[0];
 
+			if (imageUrl === "") {
+				imageUrl = photo ?? currentUser?.photo;
+			}
+
 			const data = {
 				user_id,
 				role: role ?? currentUser?.role,
 				name: name ?? currentUser?.name,
 				email: email ?? currentUser?.email,
 				phone: phone ?? currentUser?.phone,
-				photo: imageUrl ?? photo ?? currentUser?.photo,
+				photo: imageUrl ?? currentUser?.photo,
 				region: region ?? currentUser?.region,
 				job_title: job_title ?? currentUser?.job_title,
 				company: company ?? currentUser?.company,
