@@ -9,7 +9,7 @@ const skillController = {
 		let sort = req.query.sort || "ASC";
 
 		let page = parseInt(req.query.page) || 1;
-		let limit = parseInt(req.query.limit) || 10;
+		let limit = parseInt(req.query.limit) || 999999;
 		let offset = (page - 1) * limit;
 
 		const resultCount = await skillModel.countDataSkill();
