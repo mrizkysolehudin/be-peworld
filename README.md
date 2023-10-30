@@ -89,6 +89,6 @@ Start the project
 
 ⚡[`Backend Peworld`](https://github.com/mrizkysolehudin/be-peworld)⚡
 
-⚡ [`Frontend Peworld`](https://github.com/mrizkysolehudin/fe-peworld-rtk)⚡
+⚡[`Frontend Peworld`](https://github.com/mrizkysolehudin/fe-peworld-rtk)⚡
 
-⚡ [`Live Demo Peworld`](https://fe-peworld-rtk.vercel.app)⚡
+⚡[`Live Demo Peworld`](https://fe-peworld-rtk.vercel.app)⚡
