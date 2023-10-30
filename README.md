@@ -1,8 +1,12 @@
-<h1 align="center">Peworld Backend Application</h1>
+<div align="center">
+ <img height="150" width="250" src="https://github.com/mrizkysolehudin/fe-peworld-rtk/blob/master/public/assets/icons/logo-indigo.svg"  />
+</div>
 
-## About Peworld Application
+# Peworld Backend Application
 
 Peworld is a leading platform for finding and connecting the best talents with quality companies. We are committed to shaping the future in the Fourth Industrial Revolution by providing access to the finest talent network and an efficient recruitment experience.
+
+<br />
 
 ## Built with
 
@@ -28,7 +32,7 @@ Peworld is a leading platform for finding and connecting the best talents with q
     	"xss-clean": "^0.1.4"
 ```
 
-## ENV example
+## Environment Variables
 
 ```bash
 ----------------------------------------------------------------
@@ -49,6 +53,32 @@ JWT_SECRET_KEY=
 CLOUDINARY_CLOUD_NAME=
 CLOUDINARY_API_KEY=
 CLOUDINARY_API_SECRET=
+```
+
+## Installation
+
+Clone the project
+
+```bash
+  git clone https://github.com/mrizkysolehudin/be-peworld my-project
+```
+
+Go to the project directory
+
+```bash
+  cd my-project
+```
+
+Install dependencies
+
+```bash
+  npm install
+```
+
+Start the project
+
+```bash
+  npm start
 ```
 
 ## Author
