@@ -8,6 +8,14 @@ Peworld is a leading platform for finding and connecting the best talents with q
 
 <br />
 
+## Features
+
+- Users can create worker and recruiter accounts
+- Users can edit their profiles (worker or recruiter)
+- Users can view the profiles of workers ready to be recruited
+- Recruiters can send recruitment invitations to workers
+- Workers can add and delete portfolios and skills
+
 ## Built with
 
 - NodeJS
