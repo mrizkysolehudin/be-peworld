@@ -60,7 +60,6 @@ const userController = {
 				name,
 				email,
 				phone,
-				photo,
 				region,
 				job_title,
 				company,
@@ -70,7 +69,14 @@ const userController = {
 				description,
 			} = req.body;
 
-			let imageUrl = "";
+			const { rowCount, rows } = await userModel.selectUser(user_id);
+			if (!rowCount) {
+				return responseError(res, 404, "User id is not found");
+			}
+
+			const currentUser = rows[0];
+
+			let imageUrl = currentUser?.photo ?? "";
 			if (req.file) {
 				const uploadToCloudinary = await cloudinary.uploader.upload(
 					req?.file?.path,
@@ -83,17 +89,6 @@ const userController = {
 					return responseError(res, 400, "upload image failed");
 				}
 				imageUrl = uploadToCloudinary?.secure_url ?? "";
-			}
-
-			const { rowCount, rows } = await userModel.selectUser(user_id);
-			if (!rowCount) {
-				return responseError(res, 404, "User id is not found");
-			}
-
-			const currentUser = rows[0];
-
-			if (imageUrl === "") {
-				imageUrl = photo ?? currentUser?.photo;
 			}
 
 			const data = {
